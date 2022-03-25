@@ -3,7 +3,7 @@
 {% block page_content %}
 
 <div class="page-header">
-    <h1>Document Form</h1>
+    <h1>Formulario Documento</h1>
     <p> El documento a actualizar tiene el id: <b> {{ value }} </b>   </p>
         <br>
             <form action="/document_update_for_real" method="post">
@@ -22,13 +22,8 @@
                 </div>
 
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="inputGroup_pub_date">Publication date</span>
-                    <input type="text" class="form-control" name="pub_date" aria-label="Sizing example input" aria-describedby="inputGroup_lastName">
-                </div>
-
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="inputGroup_edition">Edition</span>
-                    <input type="text" class="form-control" name="edition" aria-label="Sizing example input" aria-describedby="inputGroup_lastName">
+                    <span class="input-group-text" id="inputGroup_edition">Category</span>
+                    <input type="text" class="form-control" name="Category" aria-label="Sizing example input" aria-describedby="inputGroup_category">
                 </div>
 
                 <div class="input-group mb-3">
