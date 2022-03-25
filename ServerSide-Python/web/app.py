@@ -35,37 +35,39 @@ def people():
     print(data)
     return render_template('people.html', value=data)
 
-@app.route('/libro')
-def libro():
+
+@app.route('/book')
+def book():
     data2 = [(
 
-        j.id_libro,
+        j.id_book,
         j.title,
+        j.num_pages,
+        j.category,
         j.authors,
-        j.pub_date,
-        j.edition,
-        j.num_pages
     ) for j in model2]
     print(data2)
-    return render_template('libro.html', value=data2)
+    return render_template('book.html', value=data2)
 
 
 @app.route('/document', methods=['GET'])
 def document():
     return render_template('document.html')
 
+
 @app.route('/document_detail', methods=['POST'])
 def document_detail():
-    id_libro  = request.form['id_libro']
+    id_book = request.form['id_book']
     title = request.form['title']
-    authors = request.form['authors']
-    pub_date = request.form['pub_date']
-    edition = request.form['edition']
     num_pages = request.form['num_pages']
-    document = Document(id_libro = id_libro, title = title, authors = authors, pub_date = pub_date, edition = edition, num_pages = num_pages)
+    authors = request.form['authors']
+    category = request.form['category']
+    document = Document(id_book=id_book, title=title, authors=authors, category=category,
+                        num_pages=num_pages)
     model2.append(document)
     print(document)
     return render_template('document_detail.html', value=document)
+
 
 @app.route("/person_delete/<id>")
 def delete_person(id):
@@ -76,9 +78,11 @@ def delete_person(id):
 
     return "Eliminado la persona: " + temp.id_person + temp.name
 
+
 @app.route("/person_update/<id>")
 def update_person(id):
     return render_template("person_view_update.html", value=id)
+
 
 @app.route("/person_update_for_real", methods=["POST"])
 def persona_update_for_real():
@@ -94,36 +98,35 @@ def persona_update_for_real():
             return people()
 
 
-
 @app.route("/document_delete/<id>")
 def delete_document(id):
     for i in model2:
-        if i.id_libro == id:
+        if i.id_book == id:
             temp = i
             model2.remove(i)
 
-    return "Eliminado el documento: " + temp.id_libro + temp.title
+    return "Eliminado el documento: " + temp.id_book + temp.title
+
 
 @app.route("/document_update/<id>")
 def update_document(id):
     return render_template('document_view_update.html', value=id)
 
+
 @app.route("/document_update_for_real", methods=['POST'])
 def document_update_for_real():
-    id_libro  = request.form['id_estatica']
+    id_book = request.form['id_statics']
     title = request.form['title']
-    authors = request.form['authors']
-    pub_date = request.form['pub_date']
-    edition = request.form['edition']
     num_pages = request.form['num_pages']
+    category = request.form['category']
+    authors = request.form['authors']
 
     for i in model2:
-        if i.id_libro == id_libro:
+        if i.id_book == id_book:
             model2.remove(i)
-            new_i = Document(id_libro=id_libro, title=title, authors= authors,
-                             pub_date=pub_date, edition=edition, num_pages = num_pages)
+            new_i = Document(id_book=id_book, title=title, num_pages=num_pages, authors=authors, category=category)
             model2.append(new_i)
-            return libro()
+            return book()
 
 
 if __name__ == '__main__':
